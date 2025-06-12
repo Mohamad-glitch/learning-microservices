@@ -1,10 +1,10 @@
 package com.pm.patientservice.mapper;
 
+import com.pm.patientservice.dto.PatientRequestDTO;
 import com.pm.patientservice.dto.PatientResponseDTO;
 import com.pm.patientservice.repository.Patient;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 public class PatientMapper {
 
@@ -23,20 +23,17 @@ public class PatientMapper {
         return result;
     }
 
-    public static Patient toPatient(PatientResponseDTO patientResponseDTO) {
+    public static Patient toPatient(PatientRequestDTO patientRequestDTO) {
         Patient patient = new Patient();
 
 
-        if (patientResponseDTO.getId() != null) {
-            patient.setId(UUID.fromString(patientResponseDTO.getId()));
-        }
 
-        patient.setName(patientResponseDTO.getName());
-        patient.setEmail(patientResponseDTO.getEmail());
-        patient.setAddress(patientResponseDTO.getAddress());
-        patient.setPhone(patientResponseDTO.getPhone());
-        patient.setBirthDate(LocalDate.parse(patientResponseDTO.getBirthDate()));
-        patient.setRegistrationDate(LocalDate.parse(patientResponseDTO.getRegistrationDate()));
+        patient.setName(patientRequestDTO.getName());
+        patient.setEmail(patientRequestDTO.getEmail());
+        patient.setAddress(patientRequestDTO.getAddress());
+        patient.setPhone(patientRequestDTO.getPhone());
+        patient.setBirthDate(LocalDate.parse(patientRequestDTO.getBirthDate()));
+        patient.setRegistrationDate(LocalDate.parse(patientRequestDTO.getRegistrationDate()));
 
 
         return patient;

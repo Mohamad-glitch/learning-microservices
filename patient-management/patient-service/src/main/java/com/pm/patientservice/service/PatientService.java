@@ -1,5 +1,6 @@
 package com.pm.patientservice.service;
 
+import com.pm.patientservice.dto.PatientRequestDTO;
 import com.pm.patientservice.dto.PatientResponseDTO;
 import com.pm.patientservice.repository.Patient;
 
@@ -14,8 +15,10 @@ public interface PatientService {
 
     List<PatientResponseDTO> getAllPatients();
 
-    PatientResponseDTO createPatient(PatientResponseDTO patient);
+    PatientResponseDTO createPatient(PatientRequestDTO patient);
 
     void deletePatientByEmail(String email);
+
+    PatientResponseDTO updatePatient(UUID id, PatientRequestDTO patient);
 
 }

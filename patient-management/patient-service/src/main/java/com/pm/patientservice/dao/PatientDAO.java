@@ -20,4 +20,10 @@ public interface PatientDAO extends JpaRepository<Patient, UUID> {
     void deletePatientByEmail(String email);
 
     void deletePatientByAddress(String address);
+
+    Patient findPatientByEmail(String email);
+
+    boolean existsPatientByEmail(String email);
+
+    Patient findPatientsById(UUID id);
 }
