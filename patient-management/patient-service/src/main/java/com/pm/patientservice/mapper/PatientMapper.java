@@ -1,8 +1,7 @@
 package com.pm.patientservice.mapper;
 
-import com.pm.patientservice.dto.PatientRequestDTO;
-import com.pm.patientservice.dto.PatientResponseDTO;
-import com.pm.patientservice.repository.Patient;
+import com.pm.patientservice.dto.*;
+import com.pm.patientservice.repository.*;
 
 import java.time.LocalDate;
 
