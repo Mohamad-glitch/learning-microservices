@@ -1,0 +1,14 @@
+### the BillingService is the service that we want
+### CreateBillingAccount is the method
+
+GRPC localhost:9001/BillingService/CreateBillingAccount
+Content-Type: application/json
+
+# the body from proto file
+{
+  "patientId": "123",
+  "name": "whatever 3",
+  "email": "whateve@gmail.com"
+
+}
+

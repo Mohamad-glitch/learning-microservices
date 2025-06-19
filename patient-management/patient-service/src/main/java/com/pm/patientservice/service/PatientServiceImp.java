@@ -6,6 +6,7 @@ import com.pm.patientservice.dto.PatientRequestDTO;
 import com.pm.patientservice.dto.PatientResponseDTO;
 import com.pm.patientservice.exception.AlreadyExistsException;
 import com.pm.patientservice.exception.PatientNotFoundException;
+import com.pm.patientservice.grpc.BillingServiceGrpcClient;
 import com.pm.patientservice.mapper.PatientMapper;
 import com.pm.patientservice.repository.Patient;
 import jakarta.transaction.Transactional;
@@ -20,10 +21,12 @@ import java.util.UUID;
 public class PatientServiceImp implements PatientService {
 
     private final PatientDAO patientDAO;
+    private final BillingServiceGrpcClient billingServiceGrpcClient;
 
     @Autowired
-    public PatientServiceImp(PatientDAO patientDAO) {
+    public PatientServiceImp(PatientDAO patientDAO, BillingServiceGrpcClient billingServiceGrpcClient) {
         this.patientDAO = patientDAO;
+        this.billingServiceGrpcClient = billingServiceGrpcClient;
     }
 
 
@@ -53,6 +56,9 @@ public class PatientServiceImp implements PatientService {
         }
 
         Patient saved = patientDAO.save(PatientMapper.toPatient(patient));
+
+        // in this code we will call the wanted service and let it make what we want(logic) then return the values
+        billingServiceGrpcClient.createBillingAccount(saved.getId().toString(), saved.getName(), saved.getEmail());
 
         return PatientMapper.toDTO(saved);
     }

@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+// this will split the service request on response files into different files the default will assume it is all in same file
+option java_multiple_files = true;
+
+option java_package = "billing";
+
+// now we have to specify the name of the service and any methods are part of the service and the things that returns
+// here the service is the class called : BillingService
+service BillingService{
+// rpc is the network protocol
+// and  CreateBillingAccount is a method takes BillingRequest and return BillingResponse as a response
+  rpc CreateBillingAccount (BillingRequest) returns (BillingResponse);
+
+}
+
+// the message is like a JSON it has some files
+message BillingRequest{
+  // this means it has a patientId variable the type is string and the number it must be uniq
+  string patientId = 1;
+  string name = 2;
+  string email = 3;
+
+}
+
+// same thing
+message BillingResponse{
+  string accountId = 1;
+  string status = 2;
+
+}
+
