@@ -1,0 +1,28 @@
+### Post request to create new patient
+POST http://localhost:4000/patient/add-patient
+Content-Type: application/json
+
+{
+    "name":"whatever",
+    "email":"whatever14@exma.com",
+    "phone":"123123123",
+    "address":"jordan",
+    "birthDate":"1948-12-03",
+    "registrationDate":"1948-12-03"
+}
+
+###
+### Post request to get all patients form the api gateway
+POST http://localhost:4004/api/patients/add-patient
+Content-Type: application/json
+
+{
+  "name":"whatever",
+  "email":"whatever16@exma.com",
+  "phone":"123123123",
+  "address":"jordan",
+  "birthDate":"1948-12-03",
+  "registrationDate":"1948-12-03"
+}
+
+###
