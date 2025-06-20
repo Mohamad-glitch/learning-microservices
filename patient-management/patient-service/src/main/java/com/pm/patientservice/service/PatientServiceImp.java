@@ -7,6 +7,7 @@ import com.pm.patientservice.dto.PatientResponseDTO;
 import com.pm.patientservice.exception.AlreadyExistsException;
 import com.pm.patientservice.exception.PatientNotFoundException;
 import com.pm.patientservice.grpc.BillingServiceGrpcClient;
+import com.pm.patientservice.kafka.KafkaProducer;
 import com.pm.patientservice.mapper.PatientMapper;
 import com.pm.patientservice.repository.Patient;
 import jakarta.transaction.Transactional;
@@ -22,11 +23,13 @@ public class PatientServiceImp implements PatientService {
 
     private final PatientDAO patientDAO;
     private final BillingServiceGrpcClient billingServiceGrpcClient;
+    private final KafkaProducer kafkaProducer;
 
     @Autowired
-    public PatientServiceImp(PatientDAO patientDAO, BillingServiceGrpcClient billingServiceGrpcClient) {
+    public PatientServiceImp(PatientDAO patientDAO, BillingServiceGrpcClient billingServiceGrpcClient, KafkaProducer kafkaProducer) {
         this.patientDAO = patientDAO;
         this.billingServiceGrpcClient = billingServiceGrpcClient;
+        this.kafkaProducer = kafkaProducer;
     }
 
 
@@ -57,8 +60,11 @@ public class PatientServiceImp implements PatientService {
 
         Patient saved = patientDAO.save(PatientMapper.toPatient(patient));
 
-        // in this code we will call the wanted service and let it make what we want(logic) then return the values
+        // in this code, we will call the wanted service and let it make what we want(logic) then return the values
         billingServiceGrpcClient.createBillingAccount(saved.getId().toString(), saved.getName(), saved.getEmail());
+
+        // send this to the topic using kafka
+        kafkaProducer.sendEvent(saved);
 
         return PatientMapper.toDTO(saved);
     }
