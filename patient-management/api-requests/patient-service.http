@@ -2,3 +2,8 @@
 GET http://localhost:4000/patient/get-all-patients
 
 ###
+
+### GET request to get all patients form the api gateway
+GET http://localhost:4004/api/patients/get-all-patients
+
+###

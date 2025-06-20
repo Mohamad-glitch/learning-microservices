@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("/patient")
+@RequestMapping("/patients")
 @RestController
 @Tag(name = "patient", description = "patient CRUD operation")
 public class restController {
