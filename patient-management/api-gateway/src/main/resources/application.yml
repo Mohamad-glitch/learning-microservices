@@ -6,6 +6,14 @@ spring:
     gateway:
       routes:
 
+
+        - id: auth-service-route
+          uri: http://auth-service:4005
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
+
         ## REST CLIENT -> http://localhost:4004/api/patients
         ## the port is 4004 in top of the page here
         ## routes it is a set of roles that will be applied on the url
@@ -21,6 +29,7 @@ spring:
             - Path=/api/patients/**
           filters:
             - StripPrefix=1
+            - JwtValidation # this will call the gateway filter to preform what in the class called JwtValidationGatewayFilterFactory
 
 
         - id: api-docs-patient-route
