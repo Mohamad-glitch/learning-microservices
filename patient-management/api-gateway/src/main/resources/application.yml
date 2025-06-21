@@ -14,6 +14,14 @@ spring:
           filters:
             - StripPrefix=1
 
+
+        - id: api-docs-auth-route
+          uri: http://auth-service:4005
+          predicates:
+            - Path=/api-docs/auth
+          filters:
+            - RewritePath=/api-docs/auth,/v3/api-docs
+
         ## REST CLIENT -> http://localhost:4004/api/patients
         ## the port is 4004 in top of the page here
         ## routes it is a set of roles that will be applied on the url

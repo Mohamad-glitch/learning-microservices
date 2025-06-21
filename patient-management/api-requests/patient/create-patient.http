@@ -15,10 +15,11 @@ Content-Type: application/json
 ### Post request to get all patients form the api gateway
 POST http://localhost:4004/api/patients/add-patient
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "name":"whatever",
-  "email":"whatever16@exma.com",
+  "email":"whatever17@exma.com",
   "phone":"123123123",
   "address":"jordan",
   "birthDate":"1948-12-03",
